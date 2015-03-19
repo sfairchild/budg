@@ -52,15 +52,17 @@ ActiveRecord::Schema.define(version: 20150319184126) do
   end
 
   create_table "transactions", force: true do |t|
+    t.integer  "transable_id"
+    t.string   "transable_type"
     t.text     "name"
     t.text     "note"
     t.text     "amount"
     t.date     "transaction_on"
     t.date     "cleared_on"
-    t.integer  "budget_item_id"
-    t.integer  "income_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "transactions", ["transable_id", "transable_type"], name: "index_transactions_on_transable_id_and_transable_type", using: :btree
 
 end
