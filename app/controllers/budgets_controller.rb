@@ -4,6 +4,7 @@ class BudgetsController < ApplicationController
   # GET /budgets
   # GET /budgets.json
   def index
+    @upcoming_budgets = Budget.upcoming_budgets
     @budgets = Budget.all
   end
 

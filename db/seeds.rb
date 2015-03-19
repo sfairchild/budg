@@ -5,3 +5,18 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+plan = Plan.create
+
+Budget.create([{
+    plan: plan,
+    start_on: Date.today - 2.month,
+    end_on: Date.today - 1.month
+  },{
+    plan: plan,
+    start_on: Date.today - 1.month,
+    end_on: Date.today
+  },{
+    plan: plan,
+    start_on: Date.today ,
+    end_on: Date.today + 1.month
+  }])

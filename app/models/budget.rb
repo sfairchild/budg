@@ -4,6 +4,7 @@ class Budget < ActiveRecord::Base
 
   validates :start_on, :end_on, :plan, presence: true
 
+  scope :upcoming_budgets, -> { where('start_on > ?', Date.today)}
 
   def name
     start_on.strftime('%b-%C%y')
