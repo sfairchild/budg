@@ -17,10 +17,10 @@ ActiveRecord::Schema.define(version: 20150319184126) do
   enable_extension "plpgsql"
 
   create_table "budget_groups", force: true do |t|
-    t.integer "budget_id"
   end
 
   create_table "budget_items", force: true do |t|
+    t.integer "budget_id"
     t.integer "budget_group_id"
     t.text    "name"
     t.decimal "planned"
@@ -50,19 +50,5 @@ ActiveRecord::Schema.define(version: 20150319184126) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "transactions", force: true do |t|
-    t.integer  "transable_id"
-    t.string   "transable_type"
-    t.text     "name"
-    t.text     "note"
-    t.text     "amount"
-    t.date     "transaction_on"
-    t.date     "cleared_on"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "transactions", ["transable_id", "transable_type"], name: "index_transactions_on_transable_id_and_transable_type", using: :btree
 
 end
