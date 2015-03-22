@@ -7,7 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 plan = Plan.create
 
-Budget.create([{
+budgets = Budget.create([{
     plan: plan,
     start_on: Date.today - 2.month,
     end_on: Date.today - 1.month
@@ -19,4 +19,8 @@ Budget.create([{
     plan: plan,
     start_on: Date.today ,
     end_on: Date.today + 1.month
+  }])
+
+BudgetItem.create([{
+  
   }])
