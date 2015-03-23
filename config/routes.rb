@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   resources :envelopes
 
-  resources :budgets
+  resources :budgets do
+    get '/budgets/current', to: 'budgets#current'
+  end
 
   resources :plans
 

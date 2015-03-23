@@ -9,4 +9,8 @@ class Budget < ActiveRecord::Base
   def name
     start_on.strftime('%b-%C%y')
   end
+
+  def self.current
+  	where('start_on < ? AND end_on < ?', Date.today, Date.today).first
+  end
 end

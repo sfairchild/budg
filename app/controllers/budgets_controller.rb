@@ -13,6 +13,10 @@ class BudgetsController < ApplicationController
   def show
   end
 
+  def current
+    @budget = Budget.current
+  end
+  
   # GET /budgets/new
   def new
     @budget = Budget.new
