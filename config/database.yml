@@ -1,0 +1,17 @@
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
+  pool: 5
+  # place in your db creds here
+  username: myapp
+  password: password1
+
+development:
+  <<: *default
+  database: budg_development
+
+test:
+  <<: *default
+  database: budg_test

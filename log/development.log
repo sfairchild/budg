@@ -1,0 +1,281 @@
+  [1m[36mSQL (0.2ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (70.2ms)[0m  CREATE TABLE "budget_groups" ("id" serial primary key, "budget_id" integer) 
+  [1m[36m (99.1ms)[0m  [1mCREATE TABLE "budget_items" ("id" serial primary key, "budget_group_id" integer, "name" text, "planned" decimal) [0m
+  [1m[35m (65.8ms)[0m  CREATE TABLE "budgets" ("id" serial primary key, "plan_id" integer, "start_on" date, "end_on" date, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (65.8ms)[0m  [1mCREATE TABLE "envelopes" ("id" serial primary key, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (110.4ms)[0m  CREATE TABLE "incomes" ("id" serial primary key, "name" text, "budget_id" integer, "planed_amount" decimal, "planed_date" date) 
+  [1m[36m (65.6ms)[0m  [1mCREATE TABLE "plans" ("id" serial primary key, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (109.9ms)[0m  CREATE TABLE "transactions" ("id" serial primary key, "transable_id" integer, "transable_type" character varying(255), "name" text, "note" text, "amount" text, "transaction_on" date, "cleared_on" date, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (65.2ms)[0m  [1mCREATE  INDEX  "index_transactions_on_transable_id_and_transable_type" ON "transactions" USING btree ("transable_id", "transable_type")[0m
+  [1m[35m (10.1ms)[0m  CREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) 
+  [1m[36m (65.5ms)[0m  [1mCREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")[0m
+  [1m[35m (0.3ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (10.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150319184126')[0m
+  [1m[35m (11.0ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150120201219')
+  [1m[36m (11.0ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150120200121')[0m
+  [1m[35m (10.9ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150120200221')
+  [1m[36m (11.0ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150120211558')[0m
+  [1m[35m (11.0ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150319183021')
+  [1m[36m (11.0ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150319183041')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "plans" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"  [["created_at", "2015-03-22 16:55:12.868199"], ["updated_at", "2015-03-22 16:55:12.868199"]]
+  [1m[36m (7.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "budgets" ("created_at", "end_on", "plan_id", "start_on", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2015-03-22 16:55:12.896430"], ["end_on", "2015-02-22"], ["plan_id", 1], ["start_on", "2015-01-22"], ["updated_at", "2015-03-22 16:55:12.896430"]]
+  [1m[35m (3.9ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "budgets" ("created_at", "end_on", "plan_id", "start_on", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2015-03-22 16:55:12.902092"], ["end_on", "2015-03-22"], ["plan_id", 1], ["start_on", "2015-02-22"], ["updated_at", "2015-03-22 16:55:12.902092"]]
+  [1m[36m (9.8ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "budgets" ("created_at", "end_on", "plan_id", "start_on", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2015-03-22 16:55:12.913140"], ["end_on", "2015-04-22"], ["plan_id", 1], ["start_on", "2015-03-22"], ["updated_at", "2015-03-22 16:55:12.913140"]]
+  [1m[35m (9.8ms)[0m  COMMIT
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "plans" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2015-03-22 16:55:38.311806"], ["updated_at", "2015-03-22 16:55:38.311806"]]
+  [1m[35m (2.6ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "budgets" ("created_at", "end_on", "plan_id", "start_on", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2015-03-22 16:55:38.327401"], ["end_on", "2015-02-22"], ["plan_id", 2], ["start_on", "2015-01-22"], ["updated_at", "2015-03-22 16:55:38.327401"]]
+  [1m[36m (11.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "budgets" ("created_at", "end_on", "plan_id", "start_on", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2015-03-22 16:55:38.340752"], ["end_on", "2015-03-22"], ["plan_id", 2], ["start_on", "2015-02-22"], ["updated_at", "2015-03-22 16:55:38.340752"]]
+  [1m[35m (9.8ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "budgets" ("created_at", "end_on", "plan_id", "start_on", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2015-03-22 16:55:38.351732"], ["end_on", "2015-04-22"], ["plan_id", 2], ["start_on", "2015-03-22"], ["updated_at", "2015-03-22 16:55:38.351732"]]
+  [1m[36m (9.9ms)[0m  [1mCOMMIT[0m
+
+
+Started GET "/" for 127.0.0.1 at 2015-03-22 14:04:42 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendered /var/lib/gems/2.1.0/gems/railties-4.1.6/lib/rails/templates/rails/welcome/index.html.erb (1.1ms)
+Completed 200 OK in 10ms (Views: 4.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/budgets" for 127.0.0.1 at 2015-03-22 14:04:52 -0400
+Processing by BudgetsController#index as HTML
+  [1m[35mBudget Load (0.5ms)[0m  SELECT "budgets".* FROM "budgets"  WHERE (start_on > '2015-03-22')
+  Rendered budgets/index.html.erb within layouts/application (1.7ms)
+Completed 200 OK in 523ms (Views: 514.3ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/assets/budgets.css?body=1" for 127.0.0.1 at 2015-03-22 14:04:53 -0400
+
+
+Started GET "/assets/envelopes.css?body=1" for 127.0.0.1 at 2015-03-22 14:04:53 -0400
+
+
+Started GET "/assets/plans.css?body=1" for 127.0.0.1 at 2015-03-22 14:04:53 -0400
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2015-03-22 14:04:53 -0400
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2015-03-22 14:04:53 -0400
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2015-03-22 14:04:53 -0400
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2015-03-22 14:04:53 -0400
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2015-03-22 14:04:53 -0400
+
+
+Started GET "/assets/budgets.js?body=1" for 127.0.0.1 at 2015-03-22 14:04:53 -0400
+
+
+Started GET "/assets/envelopes.js?body=1" for 127.0.0.1 at 2015-03-22 14:04:53 -0400
+
+
+Started GET "/assets/plans.js?body=1" for 127.0.0.1 at 2015-03-22 14:04:53 -0400
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2015-03-22 14:04:53 -0400
+
+
+Started GET "/budgets/1" for 127.0.0.1 at 2015-03-22 14:05:04 -0400
+Processing by BudgetsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mBudget Load (0.3ms)[0m  [1mSELECT  "budgets".* FROM "budgets"  WHERE "budgets"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered budgets/show.html.erb within layouts/application (1.0ms)
+Completed 200 OK in 51ms (Views: 38.8ms | ActiveRecord: 3.4ms)
+
+
+Started GET "/budgets/6" for 127.0.0.1 at 2015-03-22 14:05:10 -0400
+Processing by BudgetsController#show as HTML
+  Parameters: {"id"=>"6"}
+  [1m[35mBudget Load (0.3ms)[0m  SELECT  "budgets".* FROM "budgets"  WHERE "budgets"."id" = $1 LIMIT 1  [["id", 6]]
+  Rendered budgets/show.html.erb within layouts/application (0.2ms)
+Completed 200 OK in 39ms (Views: 37.0ms | ActiveRecord: 0.3ms)
+  [1m[36mSQL (32.9ms)[0m  [1mDELETE FROM "budgets"[0m
+  [1m[35mSQL (17.4ms)[0m  DELETE FROM "plans"
+  [1m[36mSQL (0.3ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (61.0ms)[0m  CREATE TABLE "budget_groups" ("id" serial primary key, "budget_id" integer) 
+  [1m[36m (98.9ms)[0m  [1mCREATE TABLE "budget_items" ("id" serial primary key, "budget_group_id" integer, "name" text, "planned" decimal) [0m
+  [1m[35m (65.5ms)[0m  CREATE TABLE "budgets" ("id" serial primary key, "plan_id" integer, "start_on" date, "end_on" date, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (63.7ms)[0m  [1mCREATE TABLE "envelopes" ("id" serial primary key, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (98.4ms)[0m  CREATE TABLE "incomes" ("id" serial primary key, "name" text, "budget_id" integer, "planed_amount" decimal, "planed_date" date) 
+  [1m[36m (65.6ms)[0m  [1mCREATE TABLE "plans" ("id" serial primary key, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (109.9ms)[0m  CREATE TABLE "transactions" ("id" serial primary key, "transable_id" integer, "transable_type" character varying(255), "name" text, "note" text, "amount" text, "transaction_on" date, "cleared_on" date, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (65.1ms)[0m  [1mCREATE  INDEX  "index_transactions_on_transable_id_and_transable_type" ON "transactions" USING btree ("transable_id", "transable_type")[0m
+  [1m[35m (10.8ms)[0m  CREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) 
+  [1m[36m (65.6ms)[0m  [1mCREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")[0m
+  [1m[35m (0.5ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (10.0ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150319184126')[0m
+  [1m[35m (10.9ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150120201219')
+  [1m[36m (10.9ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150120200121')[0m
+  [1m[35m (11.0ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150120200221')
+  [1m[36m (10.9ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150120211558')[0m
+  [1m[35m (10.9ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150319183021')
+  [1m[36m (10.9ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150319183041')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "plans" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"  [["created_at", "2015-03-22 18:17:56.066576"], ["updated_at", "2015-03-22 18:17:56.066576"]]
+  [1m[36m (12.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "budgets" ("created_at", "end_on", "plan_id", "start_on", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2015-03-22 18:17:56.099574"], ["end_on", "2015-02-22"], ["plan_id", 1], ["start_on", "2015-01-22"], ["updated_at", "2015-03-22 18:17:56.099574"]]
+  [1m[35m (3.8ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "budgets" ("created_at", "end_on", "plan_id", "start_on", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2015-03-22 18:17:56.104985"], ["end_on", "2015-03-22"], ["plan_id", 1], ["start_on", "2015-02-22"], ["updated_at", "2015-03-22 18:17:56.104985"]]
+  [1m[36m (10.0ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "budgets" ("created_at", "end_on", "plan_id", "start_on", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2015-03-22 18:17:56.116070"], ["end_on", "2015-04-22"], ["plan_id", 1], ["start_on", "2015-03-22"], ["updated_at", "2015-03-22 18:17:56.116070"]]
+  [1m[35m (10.0ms)[0m  COMMIT
+  [1m[36mSQL (0.1ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (6.7ms)[0m  DROP TABLE "budget_groups"
+  [1m[36m (66.7ms)[0m  [1mCREATE TABLE "budget_groups" ("id" serial primary key, "budget_id" integer) [0m
+  [1m[35m (10.7ms)[0m  DROP TABLE "budget_items"
+  [1m[36m (88.4ms)[0m  [1mCREATE TABLE "budget_items" ("id" serial primary key, "budget_group_id" integer, "name" text, "planned" decimal) [0m
+  [1m[35m (10.4ms)[0m  DROP TABLE "budgets"
+  [1m[36m (55.3ms)[0m  [1mCREATE TABLE "budgets" ("id" serial primary key, "plan_id" integer, "start_on" date, "end_on" date, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (10.4ms)[0m  DROP TABLE "envelopes"
+  [1m[36m (66.3ms)[0m  [1mCREATE TABLE "envelopes" ("id" serial primary key, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (11.4ms)[0m  DROP TABLE "incomes"
+  [1m[36m (99.4ms)[0m  [1mCREATE TABLE "incomes" ("id" serial primary key, "name" text, "budget_id" integer, "planed_amount" decimal, "planed_date" date) [0m
+  [1m[35m (10.4ms)[0m  DROP TABLE "plans"
+  [1m[36m (66.2ms)[0m  [1mCREATE TABLE "plans" ("id" serial primary key, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (10.3ms)[0m  DROP TABLE "transactions"
+  [1m[36m (99.3ms)[0m  [1mCREATE TABLE "transactions" ("id" serial primary key, "transable_id" integer, "transable_type" character varying(255), "name" text, "note" text, "amount" text, "transaction_on" date, "cleared_on" date, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (65.2ms)[0m  CREATE  INDEX  "index_transactions_on_transable_id_and_transable_type" ON "transactions" USING btree ("transable_id", "transable_type")
+  [1m[36m (4.1ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "plans" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"  [["created_at", "2015-03-22 18:22:33.889023"], ["updated_at", "2015-03-22 18:22:33.889023"]]
+  [1m[36m (3.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "budgets" ("created_at", "end_on", "plan_id", "start_on", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2015-03-22 18:22:33.906473"], ["end_on", "2015-02-22"], ["plan_id", 1], ["start_on", "2015-01-22"], ["updated_at", "2015-03-22 18:22:33.906473"]]
+  [1m[35m (10.6ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "budgets" ("created_at", "end_on", "plan_id", "start_on", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2015-03-22 18:22:33.918945"], ["end_on", "2015-03-22"], ["plan_id", 1], ["start_on", "2015-02-22"], ["updated_at", "2015-03-22 18:22:33.918945"]]
+  [1m[36m (9.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "budgets" ("created_at", "end_on", "plan_id", "start_on", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2015-03-22 18:22:33.929925"], ["end_on", "2015-04-22"], ["plan_id", 1], ["start_on", "2015-03-22"], ["updated_at", "2015-03-22 18:22:33.929925"]]
+  [1m[35m (9.7ms)[0m  COMMIT
+  [1m[36m (19.6ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (65.5ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreatePlans (20150120200121)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (41.5ms)[0m  [1mCREATE TABLE "plans" ("id" serial primary key, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20150120200121"]]
+  [1m[36m (16.7ms)[0m  [1mCOMMIT[0m
+Migrating to CreateBudgets (20150120200221)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (45.1ms)[0m  [1mCREATE TABLE "budgets" ("id" serial primary key, "plan_id" integer, "start_on" date, "end_on" date, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20150120200221"]]
+  [1m[36m (18.5ms)[0m  [1mCOMMIT[0m
+Migrating to CreateEnvelopes (20150120201219)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (45.2ms)[0m  [1mCREATE TABLE "envelopes" ("id" serial primary key, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20150120201219"]]
+  [1m[36m (18.9ms)[0m  [1mCOMMIT[0m
+Migrating to CreateBudgetGroup (20150319183021)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (45.4ms)[0m  [1mCREATE TABLE "budget_groups" ("id" serial primary key) [0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20150319183021"]]
+  [1m[36m (21.1ms)[0m  [1mCOMMIT[0m
+Migrating to CreateBudgetItem (20150319183041)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (76.6ms)[0m  [1mCREATE TABLE "budget_items" ("id" serial primary key, "budget_id" integer, "budget_group_id" integer, "name" text, "planned" decimal) [0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20150319183041"]]
+  [1m[36m (20.5ms)[0m  [1mCOMMIT[0m
+Migrating to CreateIncome (20150319184126)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (76.9ms)[0m  [1mCREATE TABLE "incomes" ("id" serial primary key, "name" text, "budget_id" integer, "planed_amount" decimal, "planed_date" date) [0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20150319184126"]]
+  [1m[36m (19.7ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36mBudget Load (0.5ms)[0m  [1mSELECT "budgets".* FROM "budgets"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "plans" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2015-03-22 18:32:35.035261"], ["updated_at", "2015-03-22 18:32:35.035261"]]
+  [1m[35m (14.0ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "budgets" ("created_at", "end_on", "plan_id", "start_on", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2015-03-22 18:32:35.063048"], ["end_on", "2015-02-22"], ["plan_id", 1], ["start_on", "2015-01-22"], ["updated_at", "2015-03-22 18:32:35.063048"]]
+  [1m[36m (10.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "budgets" ("created_at", "end_on", "plan_id", "start_on", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2015-03-22 18:32:35.075895"], ["end_on", "2015-03-22"], ["plan_id", 1], ["start_on", "2015-02-22"], ["updated_at", "2015-03-22 18:32:35.075895"]]
+  [1m[35m (9.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "budgets" ("created_at", "end_on", "plan_id", "start_on", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2015-03-22 18:32:35.086942"], ["end_on", "2015-04-22"], ["plan_id", 1], ["start_on", "2015-03-22"], ["updated_at", "2015-03-22 18:32:35.086942"]]
+  [1m[36m (9.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "budget_items" DEFAULT VALUES RETURNING "id"[0m
+  [1m[35m (4.6ms)[0m  COMMIT
+  [1m[35mBudget Load (0.7ms)[0m  SELECT "budgets".* FROM "budgets"
+  [1m[36mBudget Load (0.5ms)[0m  [1mSELECT "budgets".* FROM "budgets"  WHERE (start_on < '2015-03-22' AND end_on < '2015-03-22')[0m
+  [1m[36mBudget Load (0.5ms)[0m  [1mSELECT  "budgets".* FROM "budgets"  WHERE (start_on < '2015-03-22' AND end_on < '2015-03-22')  ORDER BY "budgets"."id" ASC LIMIT 1[0m
+
+
+Started GET "/budgets/current" for 127.0.0.1 at 2015-03-22 14:39:07 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by BudgetsController#show as HTML
+  Parameters: {"id"=>"current"}
+  [1m[35mBudget Load (0.2ms)[0m  SELECT  "budgets".* FROM "budgets"  WHERE "budgets"."id" = $1 LIMIT 1  [["id", 0]]
+Completed 404 Not Found in 14ms
+
+ActiveRecord::RecordNotFound (Couldn't find Budget with 'id'=current):
+  app/controllers/budgets_controller.rb:71:in `set_budget'
+
+
+  Rendered /var/lib/gems/2.1.0/gems/actionpack-4.1.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (0.5ms)
+  Rendered /var/lib/gems/2.1.0/gems/actionpack-4.1.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (0.9ms)
+  Rendered /var/lib/gems/2.1.0/gems/actionpack-4.1.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.8ms)
+  Rendered /var/lib/gems/2.1.0/gems/actionpack-4.1.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (10.2ms)
+
+
+Started GET "/budgets/current" for 127.0.0.1 at 2015-03-22 14:46:08 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by BudgetsController#show as HTML
+  Parameters: {"id"=>"current"}
+  [1m[35mBudget Load (0.3ms)[0m  SELECT  "budgets".* FROM "budgets"  WHERE "budgets"."id" = $1 LIMIT 1  [["id", 0]]
+Completed 404 Not Found in 13ms
+
+ActiveRecord::RecordNotFound (Couldn't find Budget with 'id'=current):
+  app/controllers/budgets_controller.rb:72:in `set_budget'
+
+
+  Rendered /var/lib/gems/2.1.0/gems/actionpack-4.1.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (0.4ms)
+  Rendered /var/lib/gems/2.1.0/gems/actionpack-4.1.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (0.9ms)
+  Rendered /var/lib/gems/2.1.0/gems/actionpack-4.1.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.7ms)
+  Rendered /var/lib/gems/2.1.0/gems/actionpack-4.1.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (9.8ms)
+
+
+Started GET "/budgets/current" for 127.0.0.1 at 2015-03-22 14:46:10 -0400
+Processing by BudgetsController#show as HTML
+  Parameters: {"id"=>"current"}
+  [1m[36mBudget Load (0.3ms)[0m  [1mSELECT  "budgets".* FROM "budgets"  WHERE "budgets"."id" = $1 LIMIT 1[0m  [["id", 0]]
+Completed 404 Not Found in 1ms
+
+ActiveRecord::RecordNotFound (Couldn't find Budget with 'id'=current):
+  app/controllers/budgets_controller.rb:72:in `set_budget'
+
+
+  Rendered /var/lib/gems/2.1.0/gems/actionpack-4.1.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (0.5ms)
+  Rendered /var/lib/gems/2.1.0/gems/actionpack-4.1.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (0.9ms)
+  Rendered /var/lib/gems/2.1.0/gems/actionpack-4.1.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.6ms)
+  Rendered /var/lib/gems/2.1.0/gems/actionpack-4.1.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (9.4ms)
